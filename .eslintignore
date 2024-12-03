@@ -1,1 +1,2 @@
 src/domain/interfaces/IHikerRepository.js
+src/domain/interfaces/IRegistrationRepository.js

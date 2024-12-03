@@ -1,5 +1,6 @@
 const Hapi = require('@hapi/hapi');
 const hikerRoutes = require('./routes/hikerRoutes');
+const registrationRoutes = require('./routes/registrationRoutes');
 
 const init = async () => {
   const server = Hapi.server({
@@ -8,6 +9,7 @@ const init = async () => {
   });
 
   server.route(hikerRoutes);
+  server.route(registrationRoutes);
 
   await server.start();
   console.log(`Server running at: ${server.info.uri}`);

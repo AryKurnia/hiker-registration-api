@@ -23,9 +23,23 @@ class ResponseFormatter {
     };
   }
 
+  static formatRegistrationResponse(registration) {
+    // Memformat data pendaftaran agar lebih bersih dan mudah dibaca
+    return {
+      registId: registration.id || registration.id_pendaftaran || registration.registId,
+      hikerId: registration.hikerId || registration.id_pendaki,
+      hikingDate: this.formatDate(registration.hikingDate || registration.tanggal_pendakian),
+      status: registration.status || registration.status_pendaftaran,
+    };
+  }
+
   // Formater jika dalam array
   static formatHikersResponse(hikers) {
     return hikers.map((hiker) => this.formatHikerResponse(hiker));
+  }
+
+  static formatRegistrationsResponse(registrations) {
+    return registrations.map((registration) => this.formatRegistrationResponse(registration));
   }
 
   static success(data, message) {

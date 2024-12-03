@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/AryKurnia/hiker-registration-api.git"
   },
   "author": "Ary Kurnia",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "@hapi/hapi": "^21.3.12",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
-    "mysql2": "^3.11.4"
+    "mysql2": "^3.11.4",
+    "winston": "^3.17.0"
   }
 }

@@ -6,7 +6,6 @@ const DeleteHiker = require('../../use_cases/hiker/DeleteHiker');
 
 const HikerRepository = require('../repositories/HikerRepository');
 const ResponseFormatter = require('../presenters/ResponseFormatter');
-const NotFoundError = require('../../domain/exceptions/NotFoundError');
 const database = require('../../frameworks_and_drivers/database/mysql');
 
 const hikerRepository = new HikerRepository(database);
@@ -26,7 +25,17 @@ const hikerController = {
       // const result = await createHiker.executr(dataHiker);
       return h.response(ResponseFormatter.success(result, 'Data pendaki berhasil ditambahkan')).code(201);
     } catch (error) {
-      return h.response(ResponseFormatter.error(error.message)).code(500);
+      switch (error.name) {
+        case 'ValidationError':
+          return h.response(ResponseFormatter.error(error.message, 'VALIDATION_ERROR')).code(400);
+        case 'ConflictError':
+          return h.response(ResponseFormatter.error(error.message, 'CONFLICT')).code(400);
+        case 'NotFoundError':
+          return h.response(ResponseFormatter.error(error.message, 'NOT_FOUND')).code(404);
+        default:
+          console.error('Unhandled Error:', error); // Logging untuk debugging
+          return h.response(ResponseFormatter.error('Terjadi kesalahan pada server')).code(500);
+      }
     }
   },
 
@@ -36,13 +45,13 @@ const hikerController = {
 
       return h.response(ResponseFormatter.success(hikers, 'Data pendaki berhasil ditemukan')).code(200);
     } catch (error) {
-      // Periksa tipe error
-      if (error instanceof NotFoundError) {
-        return h.response(ResponseFormatter.error(error.message, 'NOT_FOUND')).code(404);
+      switch (error.name) {
+        case 'NotFoundError':
+          return h.response(ResponseFormatter.error(error.message, 'NOT_FOUND')).code(404);
+        default:
+          console.error('Unhandled Error:', error); // Logging untuk debugging
+          return h.response(ResponseFormatter.error('Terjadi kesalahan pada server')).code(500);
       }
-
-      // Tangani error lain
-      return h.response(ResponseFormatter.error(error.message)).code(500);
     }
   },
 
@@ -52,11 +61,14 @@ const hikerController = {
       const hiker = ResponseFormatter.formatHikerResponse(await getHikerById.executr(id));
       return h.response(ResponseFormatter.success(hiker, 'Data pendaki berhasil ditemukan')).code(200);
     } catch (error) {
-      if (error instanceof NotFoundError) {
-        return h.response(ResponseFormatter.error(error.message, 'NOT_FOUND')).code(404);
+      // Controller menangani error berdasarkan jenis (abstraksi)
+      switch (error.name) {
+        case 'NotFoundError':
+          return h.response(ResponseFormatter.error(error.message, 'NOT_FOUND')).code(404);
+        default:
+          console.error('Unhandled Error:', error); // Logging untuk debugging
+          return h.response(ResponseFormatter.error('Terjadi kesalahan pada server')).code(500);
       }
-
-      return h.response(ResponseFormatter.error(error.message)).code(500);
     }
   },
 
