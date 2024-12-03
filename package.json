@@ -1,0 +1,31 @@
+{
+  "name": "registrasi-pendakian-api",
+  "version": "1.0.0",
+  "description": "API untuk registrasi pendakian gunung menggunakan Hapi.js dengan Clean Architecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start-dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Ary Kurnia",
+  "license": "ISC",
+  "homepage": "",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@hapi/hapi": "^21.3.12",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "mysql2": "^3.11.4"
+  }
+}
