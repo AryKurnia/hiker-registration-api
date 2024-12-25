@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      # set root password
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+    networks:
+      - hicker-network
+    volumes:
+      # - ./data:/var/lib/mysql # uncomment ini jika ingin menyimpan pada data pada local
+      - mysql-data:/var/lib/mysql
+      # - ./initdb:/docker-entrypoint-initdb.d # uncomment ini jika ingin menginisiasi database
+  hicker-api-server:
+    container_name: hicker-api-server
+    image: hicker-api:1.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+    # Server details
+      - HOST=${HOST}
+      - PORT=${PORT}
+    # API key
+      - API_KEY=${API_KEY}
+    # Database connection details
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=mysql
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    networks:
+      - hicker-network
+
+networks:
+  hicker-network:
+    name: hicker-network
+
+volumes:
+  mysql-data:

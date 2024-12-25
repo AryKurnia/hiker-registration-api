@@ -13,9 +13,6 @@ RUN npm install --production
 # Salin semua kode sumber ke dalam container
 COPY . .
 
-# Salin file .env.example menjadi .env
-RUN cp .env.example .env
-
 # Ekspose port untuk aplikasi (sesuai yang didefinisikan dalam server.js, misalnya 3000)
 EXPOSE 3000
 
