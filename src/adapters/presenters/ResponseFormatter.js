@@ -28,6 +28,7 @@ class ResponseFormatter {
     return {
       registId: registration.id || registration.id_pendaftaran || registration.registId,
       hikerId: registration.hikerId || registration.id_pendaki,
+      hikerName: registration.hikerName || registration.nama_lengkap,
       hikingDate: this.formatDate(registration.hikingDate || registration.tanggal_pendakian),
       status: registration.status || registration.status_pendaftaran,
     };

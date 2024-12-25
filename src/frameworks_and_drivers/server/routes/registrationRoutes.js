@@ -10,6 +10,14 @@ const registrationRoutes = [
       pre: [{ method: validateApiKey }],
     },
   },
+  {
+    method: 'GET',
+    path: '/registrations',
+    handler: RegistrationController.getAll,
+    options: {
+      pre: [{ method: validateApiKey }],
+    },
+  },
 ];
 
 module.exports = registrationRoutes;

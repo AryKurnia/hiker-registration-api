@@ -18,7 +18,10 @@ class CreateRegistration {
     const registration = new Registration(hikerId, hikingDate, status);
     const registrationCreatedId = await this.registrationRepository.create(registration);
 
-    Object.assign(registration, { registId: registrationCreatedId });
+    Object.assign(registration, {
+      registId: registrationCreatedId.registeredId,
+      hikerName: registrationCreatedId.hikerName,
+    });
 
     return registration;
   }

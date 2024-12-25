@@ -1,4 +1,5 @@
 const CreateRegistration = require('../../use_cases/registration/CreateRegistration');
+const GetAllRegistration = require('../../use_cases/registration/GetAllRegistration');
 
 const RegistrationRepository = require('../repositories/RegistrationRepository');
 const ResponseFormatter = require('../presenters/ResponseFormatter');
@@ -7,6 +8,7 @@ const database = require('../../frameworks_and_drivers/database/mysql');
 const registrationRepository = new RegistrationRepository(database);
 
 const createRegistration = new CreateRegistration(registrationRepository);
+const getAllRegistration = new GetAllRegistration(registrationRepository);
 
 const registrationController = {
   async create(request, h) {
@@ -22,6 +24,16 @@ const registrationController = {
           console.error('Unhandled Error:', error); // Logging untuk debugging
           return h.response(ResponseFormatter.error('Terjadi kesalahan pada server')).code(500);
       }
+    }
+  },
+
+  async getAll(request, h) {
+    try {
+      const registrations = await getAllRegistration.executr();
+      return h.response(ResponseFormatter.success(ResponseFormatter.formatRegistrationsResponse(registrations), 'Data pendaki berhasil ditemukan'))
+        .code(200);
+    } catch (error) {
+      throw new Error('Terjadi kesalahan pada server');
     }
   },
 };
