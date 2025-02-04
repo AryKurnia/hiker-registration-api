@@ -14,10 +14,10 @@ class UpdateHiker {
     }
 
     const {
-      name, alamat, noHP, email, tglLahir,
+      name, nik, jenisKelamin, alamat, noHP, email, tglLahir,
     } = dataHiker;
 
-    const hiker = new Hiker(name, alamat, noHP, email, tglLahir);
+    const hiker = new Hiker(name, nik, jenisKelamin, alamat, noHP, email, tglLahir);
 
     return this.hikerRepository.update(id, hiker);
   }

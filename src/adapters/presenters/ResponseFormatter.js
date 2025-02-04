@@ -16,6 +16,8 @@ class ResponseFormatter {
     return {
       id: hiker.id || hiker.id_pendaki,
       name: hiker.name || hiker.nama_lengkap,
+      nik: hiker.nik,
+      jenisKelamin: hiker.jenisKelamin || hiker.jenis_kelamin,
       alamat: hiker.alamat || hiker.alamat,
       noHP: hiker.noHP || hiker.no_hp,
       email: hiker.email || hiker.email,
@@ -29,8 +31,10 @@ class ResponseFormatter {
       registId: registration.id || registration.id_pendaftaran || registration.registId,
       hikerId: registration.hikerId || registration.id_pendaki,
       hikerName: registration.hikerName || registration.nama_lengkap,
+      hikerNik: registration.hikerNik,
       hikingDate: this.formatDate(registration.hikingDate || registration.tanggal_pendakian),
       status: registration.status || registration.status_pendaftaran,
+      note: registration.note,
     };
   }
 

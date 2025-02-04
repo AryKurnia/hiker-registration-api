@@ -8,19 +8,22 @@ class CreateRegistration {
   }
 
   async executr(registrationData) {
-    const { hikerId, hikingDate, status } = registrationData;
+    const {
+      hikerId, hikingDate, status, note,
+    } = registrationData;
 
     const errors = RegistrationValidator.validate(registrationData);
     if (errors.length > 0) {
       throw new ValidationError(errors.join(', '));
     }
 
-    const registration = new Registration(hikerId, hikingDate, status);
+    const registration = new Registration(hikerId, hikingDate, status, note);
     const registrationCreatedId = await this.registrationRepository.create(registration);
 
     Object.assign(registration, {
       registId: registrationCreatedId.registeredId,
       hikerName: registrationCreatedId.hikerName,
+      hikerNik: registrationCreatedId.hikerNik,
     });
 
     return registration;

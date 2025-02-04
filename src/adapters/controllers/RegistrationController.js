@@ -14,6 +14,8 @@ const registrationController = {
   async create(request, h) {
     try {
       const dataRegistration = request.payload;
+      // console.log(dataRegistration);
+
       const result = await createRegistration.executr(dataRegistration);
       return h.response(ResponseFormatter.success(ResponseFormatter.formatRegistrationResponse(result), 'Registrasi Pendaki Berhasil')).code(201);
     } catch (error) {

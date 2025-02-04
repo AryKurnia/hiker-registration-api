@@ -20,6 +20,7 @@ const hikerController = {
   async create(request, h) {
     try {
       const dataHiker = request.payload; // Ambil data dari body request
+      // console.log(dataHiker);
 
       const result = ResponseFormatter.formatHikerResponse(await createHiker.executr(dataHiker));
       // const result = await createHiker.executr(dataHiker);
