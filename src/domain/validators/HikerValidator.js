@@ -10,6 +10,18 @@ class HikerValidator {
       errors.push('Nama hanya boleh berisi huruf dan spasi');
     }
 
+    // Validasi NIK
+    if (!data.nik || data.nik.trim() === '') {
+      errors.push('NIK tidak boleh kosong');
+    } else if (!/^\d{16}$/.test(data.nik)) {
+      errors.push('NIK harus terdiri dari 16 digit angka');
+    }
+
+    // Validasi Jenis Kelamin
+    if (!data.jenisKelamin || !['L', 'P'].includes(data.jenisKelamin)) {
+      errors.push('Jenis kelamin harus diisi dengan L atau P');
+    }
+
     // Validasi Nomor HP
     if (!data.noHP.startsWith('62')) {
       errors.push('No HP harus dimulai dengan kode negara (62)');

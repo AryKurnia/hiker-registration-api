@@ -11,8 +11,10 @@ class HikerRepository extends IHikerRepository {
   }
 
   async create(hiker) {
-    const query = `INSERT INTO ${this.tableName} (nama_lengkap, alamat, no_hp, email, tanggal_lahir) VALUES (?, ?, ?, ?, ?)`;
-    const values = [hiker.name, hiker.alamat, hiker.noHP, hiker.email, hiker.tglLahir];
+    // console.log(hiker);
+    const query = `INSERT INTO ${this.tableName} (nama_lengkap, nik, jenis_kelamin, alamat, no_hp, email, tanggal_lahir) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [hiker.name, hiker.nik, hiker.jenisKelamin,
+      hiker.alamat, hiker.noHP, hiker.email, hiker.tglLahir];
 
     try {
       const result = await this.database.query(query, values);
@@ -56,10 +58,11 @@ class HikerRepository extends IHikerRepository {
   async update(id, hiker) {
     const query = `
       UPDATE ${this.tableName}
-      SET nama_lengkap = ?, alamat = ?, no_hp = ?, email = ?, tanggal_lahir = ?
+      SET nama_lengkap = ?, nik = ?, jenis_kelamin = ?, alamat = ?, no_hp = ?, email = ?, tanggal_lahir = ?
       WHERE id_pendaki = ?
     `;
-    const values = [hiker.name, hiker.alamat, hiker.noHP, hiker.email, hiker.tglLahir, id];
+    const values = [hiker.name, hiker.nik, hiker.jenisKelamin, hiker.alamat,
+      hiker.noHP, hiker.email, hiker.tglLahir, id];
 
     try {
       const [result] = await this.database.query(query, values);
