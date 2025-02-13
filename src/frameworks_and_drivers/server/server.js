@@ -6,6 +6,12 @@ const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
+    routes: {
+      cors: {
+        origin: ['*'], // Mengizinkan semua domain
+        headers: ['Accept', 'Content-Type', 'x-api-key'], // Header yang diperbolehkan
+      },
+    },
   });
 
   server.route(hikerRoutes);
